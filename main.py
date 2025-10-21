@@ -72,6 +72,18 @@ def remove_student(db, surname):
             return True
     return False
 
+    # Added by: Конопля Іван — функція обчислення середнього балу групи
+def group_average(db):
+    """
+    Обчислює середній бал по всіх студентах групи.
+    Повертає середнє значення або None, якщо студентів немає.
+    """
+    students = db.get("students", [])
+    if not students:
+        return None
+    grades = [average_grade(s) for s in students if average_grade(s) is not None]
+    return round(sum(grades) / len(grades), 2) if grades else None
+
 # Простий приклад використання
 if __name__ == "__main__":
     # додаємо двох студентів як приклад
