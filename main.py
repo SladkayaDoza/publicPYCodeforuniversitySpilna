@@ -28,10 +28,40 @@ def add_student(db, surname, name, patronymic, course, subjects):
 def average_grade(student):
     grades = list(student.get("subjects", {}).values())
     return round(mean(grades), 2) if grades else None
+    
+# Added by: Штельмах Кіріл — функція сортування
+def sort_students(db, by="average", reverse=False):
+    """
+    Сортує список db['students'] на місці.
+    by: "average" | "surname" | "course"
+    reverse: False (зростання) або True (спадання)
+    Повертає відсортований список студентів.
+    """
+    students = db.setdefault("students", [])
+
+    if by == "average":
+        # для студентів без оцінок даємо ключ -1 (нижче будь-якого реального бала 0..100)
+        students.sort(key=lambda s: (average_grade(s) if average_grade(s) is not None else -1), reverse=reverse)
+    elif by == "surname":
+        # сортування за прізвищем, нечутливе до регістру
+        students.sort(key=lambda s: (s.get("surname") or "").lower(), reverse=reverse)
+    elif by == "course":
+        # курс може бути числом або рядком; намагаємось перетворити на int, інакше ставимо великий ключ
+        def course_key(s):
+            c = s.get("course")
+            try:
+                return int(c)
+            except Exception:
+                return float("inf")
+        students.sort(key=course_key, reverse=reverse)
+    else:
+        raise ValueError("Unsupported sort key: use 'average', 'surname' or 'course'")
+
+    return students
 
 # Простий приклад використання
 if __name__ == "__main__":
-    # Додаємо двох студентів як приклад
+    # додаємо двох студентів як приклад
     add_student(db, "Іваненко", "Петро", "Олексійович", 2, {
         "Mathematics": 85,
         "Physics": 78,
@@ -43,10 +73,25 @@ if __name__ == "__main__":
         "Programming": 95
     })
 
-    # Вивід у форматі JSON для зручності
+    # початковий стан
+    print("=== Before sorting ===")
     print(json.dumps(db, ensure_ascii=False, indent=2))
 
-    # Приклад: вивести середній бал кожного студента
+    # середні бали
     for s in db["students"]:
-        avg = average_grade(s)
-        print(f"{s['surname']} {s['name']}: avg = {avg}")
+        print(f"{s['surname']} {s['name']}: avg = {average_grade(s)}")
+
+    # сортуємо за прізвищем (зростання)
+    sort_students(db, by="surname")
+    print("\n=== After sort by surname ===")
+    print(json.dumps(db, ensure_ascii=False, indent=2))
+
+    # сортуємо за середнім балом (спадання)
+    sort_students(db, by="average", reverse=True)
+    print("\n=== After sort by average (desc) ===")
+    print(json.dumps(db, ensure_ascii=False, indent=2))
+
+    # сортуємо за курсом (зростання)
+    sort_students(db, by="course")
+    print("\n=== After sort by course ===")
+    print(json.dumps(db, ensure_ascii=False, indent=2))
