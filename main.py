@@ -72,7 +72,7 @@ def remove_student(db, surname):
             return True
     return False
 
-    # Added by: Конопля Іван — функція обчислення середнього балу групи
+# Added by: Конопля Іван — функція обчислення середнього балу групи
 def group_average(db):
     """
     Обчислює середній бал по всіх студентах групи.
@@ -119,4 +119,14 @@ if __name__ == "__main__":
     # сортуємо за курсом (зростання)
     sort_students(db, by="course")
     print("\n=== After sort by course ===")
+    print(json.dumps(db, ensure_ascii=False, indent=2))
+    
+    # видаляємо студента за прізвищем
+    print("\n=== Removing student 'Іваненко' ===")
+    if remove_student(db, "Іваненко"):
+        print("Студента 'Іваненко' успішно видалено.")
+    else:
+        print("Студента 'Іваненко' не знайдено.")
+
+    # перевіримо, що він дійсно зник зі списку
     print(json.dumps(db, ensure_ascii=False, indent=2))
