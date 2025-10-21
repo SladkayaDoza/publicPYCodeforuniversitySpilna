@@ -1,5 +1,5 @@
 # main.py
-# Author: Мухін Владислав
+# Author: Мухін Владислав, Максим Білошапка, Штельмах Кирил та Конопля Іван
 # Role: створив початкову структуру словника та функцію додавання
 # Date: 2025-10-21
 
@@ -58,6 +58,19 @@ def sort_students(db, by="average", reverse=False):
         raise ValueError("Unsupported sort key: use 'average', 'surname' or 'course'")
 
     return students
+    
+# Added by: Максим Білошапка — функція видалення студента
+def remove_student(db, surname):
+    """
+    Видаляє студента за прізвищем (перший збіг).
+    Повертає True, якщо видалення успішне, інакше False.
+    """
+    students = db.get("students", [])
+    for i, s in enumerate(students):
+        if s.get("surname") == surname:
+            del students[i]
+            return True
+    return False
 
 # Простий приклад використання
 if __name__ == "__main__":
