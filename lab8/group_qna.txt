@@ -4,3 +4,10 @@ ANSWER:
 QUESTION:
 Як у Python відкрити текстовий файл та зчитати всі рядки у список?
 
+STUDENT: Конопля І.І.
+ANSWER:
+with open("file.txt", "r", encoding="utf-8") as f:
+   lines = f.readlines()
+QUESTION:
+Які типи данних існують в Python?
+

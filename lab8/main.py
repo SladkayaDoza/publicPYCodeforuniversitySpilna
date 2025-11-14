@@ -64,10 +64,10 @@ if __name__ == "__main__":
     # 2) Другий (і наступні) студенти:
     #    розкоментувати блок нижче, змінити прізвище / відповідь / питання
     
-    answer = [
-        "", # Відповідь може займати кілька рядків, кожен рядок - елемент у списку
-        ""
+    answer = [ 
+        "with open(\"file.txt\", \"r\", encoding=\"utf-8\") as f:", # Відповідь може займати кілька рядків, кожен рядок - елемент у списку
+        "   lines = f.readlines()"
     ]
-    new_question = "Наступне питання"
-    append_student_block("Прізвище", answer, new_question)
+    new_question = "Які типи данних існують в Python?"
+    append_student_block("Конопля І.І.", answer, new_question)
     
