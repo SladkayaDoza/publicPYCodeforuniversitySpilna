@@ -11,3 +11,9 @@ with open("file.txt", "r", encoding="utf-8") as f:
 QUESTION:
 Які типи данних існують в Python?
 
+STUDENT: Білошапка М.А.
+ANSWER:
+ай донт ноу
+QUESTION:
+хау мач ю волкинг ин дей?
+

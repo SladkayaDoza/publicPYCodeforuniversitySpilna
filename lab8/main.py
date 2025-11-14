@@ -65,9 +65,8 @@ if __name__ == "__main__":
     #    розкоментувати блок нижче, змінити прізвище / відповідь / питання
     
     answer = [ 
-        "with open(\"file.txt\", \"r\", encoding=\"utf-8\") as f:", # Відповідь може займати кілька рядків, кожен рядок - елемент у списку
-        "   lines = f.readlines()"
+        "ай донт ноу", # Відповідь може займати кілька рядків, кожен рядок - елемент у списку
     ]
-    new_question = "Які типи данних існують в Python?"
-    append_student_block("Конопля І.І.", answer, new_question)
+    new_question = "хау мач ю волкинг ин дей?"
+    append_student_block("Білошапка М.А.", answer, new_question)
     
